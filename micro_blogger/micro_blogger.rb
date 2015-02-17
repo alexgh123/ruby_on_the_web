@@ -12,12 +12,9 @@ class MicroBlogger
 
   def shorten(original_url)
     puts "Shortening this URL: #{original_url}"
-
-    bitley = Bitley.new('hungryacademy', 'R_430e9f62250186d2612cca76eee2dbc6')
-
-    url = bitly.shorten(original_url).short_url
-
-
+    Bitly.use_api_version_3
+    bitly = Bitly.new('hungryacademy', 'R_430e9f62250186d2612cca76eee2dbc6')
+    return bitly.shorten(original_url).short_url
   end
 
   def tweet(message)
