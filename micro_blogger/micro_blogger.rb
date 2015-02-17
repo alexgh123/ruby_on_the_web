@@ -91,7 +91,8 @@ class MicroBlogger
         when 'spam' then
           spam_my_followers(parts[1..-1].join(" "))
         when 'elt' then everyones_last_tweet
-        when 's' then shorten(parts[1])
+        when 's' then p shorten(parts[1])
+        when 'turl' then tweet(parts[1..-2].join(" ") + shorten(parts[-1]))
           else
           puts "Sorry, I don't know how to #{command}"
       end
@@ -102,6 +103,6 @@ end #ends class
 
 blogger = MicroBlogger.new
 
-blogger.shorten('http://jumpstartlab.com/courses/')
+# blogger.shorten('http://jumpstartlab.com/courses/')
 
-#blogger.run#("more than 40 test- asodnassdsdsdsdsdsdsdsdsdlansdofansdf;lnasdf;lnads;flnads;lfnasdl;fndlnfal;dsnfal;sdnflads sdksdlsdnkdslkn adflknasdn end here? is this 140 characters?")
+blogger.run#("more than 40 test- asodnassdsdsdsdsdsdsdsdsdlansdofansdf;lnasdf;lnads;flnads;lfnasdl;fndlnfal;dsnfal;sdnflads sdksdlsdnkdslkn adflknasdn end here? is this 140 characters?")
