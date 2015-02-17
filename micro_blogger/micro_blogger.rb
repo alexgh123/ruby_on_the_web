@@ -51,13 +51,18 @@ class MicroBlogger
   end
 
   def everyones_last_tweet
+    #i think this is kinda circular and i need to investigate this method more
     friends = @client.friends
+    friends = friends.sort_by { |friend| @client.user(friend).screen_name.downcase}
+
     friends.each do |friend|
-      #find each friends last message
-       p friend.tweet.last
-      #print each friends name
-      #print each friends last message
-      puts "" #format, seperate view
+      friend_name = @client.user(friend).screen_name
+      friend_last_tweet = @client.user(friend).status.text
+      timestamp = @client.user(friend).status.created_at
+      timestamp = timestamp.strftime("%A, %b %d")
+
+      puts "\n#{friend_name} wrote at #{timestamp}:"
+      puts "#{friend_last_tweet}\n"
     end
   end
 
@@ -75,6 +80,7 @@ class MicroBlogger
         when 'dm' then dm(parts[1], parts[2..-1].join(" "))
         when 'spam' then
           spam_my_followers(parts[1..-1].join(" "))
+        when 'elt' then everyones_last_tweet
           else
           puts "Sorry, I don't know how to #{command}"
       end
