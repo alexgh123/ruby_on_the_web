@@ -1,4 +1,6 @@
 require 'jumpstart_auth'
+require 'bitly'
+
 
 class MicroBlogger
   attr_reader :client
@@ -6,6 +8,16 @@ class MicroBlogger
   def initialize
     puts "initializing MicroBlogger"
     @client = JumpstartAuth.twitter
+  end
+
+  def shorten(original_url)
+    puts "Shortening this URL: #{original_url}"
+
+    bitley = Bitley.new('hungryacademy', 'R_430e9f62250186d2612cca76eee2dbc6')
+
+    url = bitly.shorten(original_url).short_url
+
+
   end
 
   def tweet(message)
@@ -82,6 +94,7 @@ class MicroBlogger
         when 'spam' then
           spam_my_followers(parts[1..-1].join(" "))
         when 'elt' then everyones_last_tweet
+        when 's' then shorten(parts[1])
           else
           puts "Sorry, I don't know how to #{command}"
       end
@@ -92,5 +105,6 @@ end #ends class
 
 blogger = MicroBlogger.new
 
+blogger.shorten('http://jumpstartlab.com/courses/')
 
-blogger.run#("more than 40 test- asodnassdsdsdsdsdsdsdsdsdlansdofansdf;lnasdf;lnads;flnads;lfnasdl;fndlnfal;dsnfal;sdnflads sdksdlsdnkdslkn adflknasdn end here? is this 140 characters?")
+#blogger.run#("more than 40 test- asodnassdsdsdsdsdsdsdsdsdlansdofansdf;lnasdf;lnads;flnads;lfnasdl;fndlnfal;dsnfal;sdnflads sdksdlsdnkdslkn adflknasdn end here? is this 140 characters?")
