@@ -46,7 +46,7 @@ class MicroBlogger
 
   def last_tweet_from_each_friend
     @client.followers.collect {|follower|
-      follower.tweet.last
+      #follower.tweet.last
     }
   end
 
@@ -54,6 +54,7 @@ class MicroBlogger
     friends = @client.friends
     friends.each do |friend|
       #find each friends last message
+       p friend.tweet.last
       #print each friends name
       #print each friends last message
       puts "" #format, seperate view
