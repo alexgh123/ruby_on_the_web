@@ -44,11 +44,12 @@ class MicroBlogger
     }
   end
 
-  def last_tweet_from_each_friend
-    @client.followers.collect {|follower|
-      #follower.tweet.last
-    }
-  end
+#this is how i started to think about it, then i caved and looked at other's work: (this is the begining of the everyones_last_tweet method)
+  # def last_tweet_from_each_friend
+  #   @client.followers.collect {|follower|
+  #     #follower.tweet.last
+  #   }
+  # end
 
   def everyones_last_tweet
     #i think this is kinda circular and i need to investigate this method more
