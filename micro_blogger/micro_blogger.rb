@@ -19,12 +19,15 @@ class MicroBlogger
   def dm(target, message)
 
     #logic to verify you can DM someone
-
-
-    puts "Trying to send #{target} this direct message:"
-    puts message
-    message = "d @#{target} #{message}"
-    tweet(message)
+      screen_names = @client.followers.collect {|follower| @client.user(follower).screen_name}
+      if screen_names.include?(target)
+        puts "Trying to send #{target} this direct message:"
+        puts message
+        message = "d @#{target} #{message}"
+        tweet(message)
+      else
+        raise ArgumentError, "You can only DM yo followers fool!"
+      end
   end
 
   def run
