@@ -42,7 +42,22 @@ class MicroBlogger
     followers_list.each {|follower|
       dm(follower, message)
     }
+  end
 
+  def last_tweet_from_each_friend
+    @client.followers.collect {|follower|
+      follower.tweet.last
+    }
+  end
+
+  def everyones_last_tweet
+    friends = @client.friends
+    friends.each do |friend|
+      #find each friends last message
+      #print each friends name
+      #print each friends last message
+      puts "" #format, seperate view
+    end
   end
 
   def run
