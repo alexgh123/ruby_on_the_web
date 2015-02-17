@@ -17,8 +17,6 @@ class MicroBlogger
   end
 
   def dm(target, message)
-
-    #logic to verify you can DM someone
       screen_names = @client.followers.collect {|follower| @client.user(follower).screen_name}
       if screen_names.include?(target)
         puts "Trying to send #{target} this direct message:"
@@ -28,6 +26,23 @@ class MicroBlogger
       else
         raise ArgumentError, "You can only DM yo followers fool!"
       end
+  end
+
+  def followers_list
+    screen_names = []
+    @client.followers.collect {|follower|
+      screen_names << @client.user(follower).screen_name
+    }
+    screen_names
+  end
+
+#re followers_list method: why isn't there a variable called followers, or list_of_followers, that's what we want right? screen_name is a word from AIM, this is twitter
+
+  def spam_my_followers(message)
+    followers_list.each {|follower|
+      dm(follower, message)
+    }
+
   end
 
   def run
@@ -42,6 +57,8 @@ class MicroBlogger
         when 'q' then puts "Goodbye!"
         when 't' then  tweet(parts[1..-1].join(" "))
         when 'dm' then dm(parts[1], parts[2..-1].join(" "))
+        when 'spam' then
+          spam_my_followers(parts[1..-1].join(" "))
           else
           puts "Sorry, I don't know how to #{command}"
       end
