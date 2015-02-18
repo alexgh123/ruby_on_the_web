@@ -1,3 +1,5 @@
+#most basic iteration I've done before, i just fire up the server, then run this command (curl --verbose -XGET http://localhost:2345/anything) in another shell/terminal window
+
 require 'socket'
 
 server = TCPServer.new('localhost', 2345)
