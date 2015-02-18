@@ -1,8 +1,5 @@
 require 'socket'
-
-webserver = TCPServer.new('127.0.0.1', 7125)
-#^ connection to server(the fridge) (not webserver(waiter))
-
+webserver = TCPServer.new('127.0.0.1', 7125)#^ connection to server(the fridge) (not webserver(waiter)) #so to connect to net, do i need to have a waiter and a fridge connect?
 while (session = webserver.accept)
    session.print "HTTP/1.1 200/OK\r\nContent-type:text/html\r\n\r\n"
    request = session.gets
