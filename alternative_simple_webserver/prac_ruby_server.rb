@@ -64,6 +64,10 @@ loop do
   STDERR.puts request_line
   path = requested_file(request_line)
 
+  path = File.join(path, 'index.html') if File.directory?(path) #no ending in file name just goes straight to index page
+  #this is the link to the external page, or in the current case, the index.html
+
+
   if File.exist?(path) && !File.directory?(path)
     File.open(path, "rb") do |file|
       socket.print  "HTTP/1.1 200 ok\r\n" +
@@ -75,7 +79,7 @@ loop do
       IO.copy_stream(file, socket)
     end
   else
-    message = "File not found\n"
+    message = "IDIOT! File not found\n"
 
     socket.print  "HTTP/1.1 404 Not Found\r\n" +
                   "Content-Type: text/plain\r\n" +
