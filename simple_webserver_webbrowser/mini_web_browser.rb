@@ -1,4 +1,6 @@
-#fetching content from a web page, kinda understand it
+#fetching content from a web page, kinda understand it. this is essentially the bare boens of a web browser
+
+#this is a client/ browser
 
 require 'socket'
 
