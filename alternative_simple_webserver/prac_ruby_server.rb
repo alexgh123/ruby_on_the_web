@@ -45,7 +45,7 @@ end
 #^ author says: 'helper function parses extension of the requested file then looks up its content type (with the help of the content mapper hash i typed above)'
 def requested_file(request_line) #sanitizing inputs so no injection attacks
   request_uri = request_line.split(" ")[1]
-  path = URI.unescape(URI(reqeust_uri).path)
+  path = URI.unescape(URI(request_uri).path)
   clean = []
 
   parts = path.split("/")
@@ -54,7 +54,7 @@ def requested_file(request_line) #sanitizing inputs so no injection attacks
     next if part.empty? || parts == '.'
     part == '..' ? clean.pop : clean << part
   end
-  file.join(WEB_ROOT, *clean)
+  File.join(WEB_ROOT, *clean)
 end
 # ^ 'This helper function parses the Request-Line and generates a path to a file on the server.' so says author
 server = TCPServer.new('localhost', 2345)
